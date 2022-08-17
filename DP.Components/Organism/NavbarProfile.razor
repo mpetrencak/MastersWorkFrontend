@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager _navigation;
+@inject SignOutSessionStateManager _signOutManager
+
+<AuthorizeView>
+    <Authorized>
+        <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-dark btn-lg btn-link mx-1
+            d-inline-flex" @onclick="NavigateToProfile">
+                <div class="d-inline-flex align-items-center">
+                    @context.User.Identity.Name
+                    <i class="fas fa-gear pl-2"></i>
+                </div>
+            </button>
+
+            <button type="button" class="btn btn-dark btn-lg btn-link mx-1
+            d-inline-flex" @onclick="NavigateToLogout">
+                <div class="d-inline-flex align-items-center">
+                    Logout
+                    <i class="fas fa-right-from-bracket pl-2"></i>
+                </div>
+            </button>
+        </div>
+    </Authorized>
+
+    <NotAuthorized>
+        <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-dark btn-lg btn-link mx-1
+            d-inline-flex" @onclick="NavigateToLogin">
+                Login
+            </button>
+
+            <button type="button" class="btn btn-dark btn-lg btn-link mx-1
+            d-inline-flex" @onclick="NavigateToRegister">
+                Registration
+            </button>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code
+{
+    private void NavigateToLogin()
+    {
+        _navigation.NavigateTo("/authentication/login");
+    }
+
+    private void NavigateToRegister()
+    {
+        _navigation.NavigateTo("https://localhost:44100/identity/account/register");
+    }
+
+    private void NavigateToProfile()
+    {
+        _navigation.NavigateTo("/userprofile");
+    }
+
+    private async void NavigateToLogout()
+    {
+        await _signOutManager.SetSignOutState();
+        _navigation.NavigateTo("/authentication/logout");
+    }
+
+}

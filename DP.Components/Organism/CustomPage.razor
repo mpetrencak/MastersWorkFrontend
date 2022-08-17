@@ -1,0 +1,33 @@
+﻿@if (IsTitleWithIcon)
+{
+    <div class="d-flex align-items-center shadow-lg">
+        <i class="fas fa-3x pr-2 @IconName"></i>
+        <div class="h1"> @Title</div>
+    </div>
+}
+else
+{
+    <div class="h1">
+        @Title
+    </div>
+}
+<hr />
+@ChildContent
+
+@code
+{
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public bool IsTitleWithIcon { get; set; }
+
+    /// <summary>
+    /// name of fas icon example: fa-calendar, must be set IsTitleWithIcon to true for works
+    /// </summary>
+    [Parameter]
+    public string IconName { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

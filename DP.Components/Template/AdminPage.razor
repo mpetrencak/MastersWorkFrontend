@@ -1,0 +1,25 @@
+﻿@using DP.Models.Event
+<CustomPage Title="Admin Page" IsTitleWithIcon="true" IconName="fa-toolbox">
+    <Card ContainHeader="true" HeaderText="Info">
+        <article>
+            @PageInfo
+        </article>
+    </Card>
+    <AddEventComponent OnCreateEvent="(createEventModel) => HandleCreateEvent(createEventModel)">
+    </AddEventComponent>
+</CustomPage>
+
+@code
+{
+    [Parameter]
+    public Func<EventModel, Task> CreateEvent { get; set; }
+
+    [Parameter]
+    public string PageInfo { get; set; }
+
+    private async Task HandleCreateEvent(EventModel createEventModel)
+    {
+        Console.WriteLine("AdminPageComponent: Task HandleCreateEvent(EventModel createEventModel)");
+        CreateEvent(createEventModel);
+    }
+}

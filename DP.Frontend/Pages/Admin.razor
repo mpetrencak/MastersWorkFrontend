@@ -1,0 +1,20 @@
+﻿@page "/admin"
+@using DP.Frontend.Services
+@using DP.Models.Event
+
+
+@attribute [Authorize(Policy = Policies.CanHaveAdmin)]
+<AdminPage CreateEvent="(createEventModel) => CreateEvent(createEventModel)" PageInfo="This page is for user with claim admin">
+</AdminPage>
+
+@code
+{
+    [Inject]
+    IEventService EventService { get; set; }
+
+    private async Task CreateEvent(EventModel createEventModel)
+    {
+        Console.WriteLine("/admin Task CreateEvent(EventModel createEventModel)");
+        await EventService.CreateNewEventAsync(createEventModel);
+    }
+}

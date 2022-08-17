@@ -1,0 +1,26 @@
+﻿@using DP.Models.Event
+<Card ContainHeader="true" HeaderText="Event">
+    <div class="h3 mb-4">@Event.Name</div>
+
+    <div class="d-flex mt-3 align-items-center">
+        <i class="fas fa-calendar fa-2x pr-2"></i> @_formattedEventStartDate
+    </div>
+    <div class="d-flex mt-3 align-items-center">
+        <i class="fas fa-location-dot fa-2x pr-2"></i> @Event.Venue
+    </div>
+</Card>
+
+@code
+{
+    [Parameter]
+    public EventModel Event { get; set; }
+
+    private string _formattedEventStartDate;
+    private string _formattedEventEndDate;
+
+    protected override void OnInitialized()
+    {
+        _formattedEventStartDate = Event.StartTime.DayOfWeek + " " + Event.StartTime.Date.Day + ". " + Event.StartTime.ToString("MMMM") + " " + Event.StartTime.ToString("HH:mm");
+        _formattedEventEndDate = Event.EndTime.DayOfWeek + " " + Event.EndTime.Date.Day + ". " + Event.EndTime.ToString("MMMM") + " " + Event.EndTime.ToString("HH:mm");
+    }
+}

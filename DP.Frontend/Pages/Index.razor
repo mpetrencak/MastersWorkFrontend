@@ -1,0 +1,22 @@
+﻿@page "/"
+@using DP.Models.Event
+@using DP.Frontend.Services
+
+
+<IndexPage Events="EventList">
+</IndexPage>
+
+@code
+{
+    [Inject]
+    IEventService EventService { get; set; }
+
+    public List<EventModel> EventList { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        //EventList = await EventService.GetAllEventsAsync();
+        EventList = await EventService.GetAllEventsAnonymousAsync();
+
+    }
+}

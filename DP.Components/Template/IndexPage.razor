@@ -1,0 +1,15 @@
+﻿@using DP.Models.Event
+<CustomPage Title="Upcoming events" IsTitleWithIcon="true" IconName="fa-calendar-days">
+    <Card>
+        @foreach (var evnt in Events)
+        {
+            <EventComponent Event="evnt" />
+        }
+    </Card>
+</CustomPage>
+
+@code
+{
+    [Parameter]
+    public List<EventModel> Events { get; set; }
+}

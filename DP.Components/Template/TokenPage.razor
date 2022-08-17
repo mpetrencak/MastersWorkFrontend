@@ -1,0 +1,11 @@
+﻿<CustomPage Title="Token">
+    <Card>
+        @ChildContent
+    </Card>
+</CustomPage>
+
+@code
+{
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

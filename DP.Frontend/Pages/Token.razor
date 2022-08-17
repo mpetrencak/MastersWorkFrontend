@@ -1,0 +1,24 @@
+﻿@page "/token"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+@inject IAccessTokenProvider TokenProvider
+
+<TokenPage>
+    <p>
+        @TokenString
+    </p>
+</TokenPage>
+
+@code
+{
+    public string TokenString { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var tokenResult = await TokenProvider.RequestAccessToken();
+        if (tokenResult.TryGetToken(out var token))
+        {
+            TokenString = token.Value;
+        }
+    }
+}

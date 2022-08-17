@@ -1,0 +1,55 @@
+﻿@using System.Runtime.Serialization
+@using DP.Models.Event
+<Card ContainHeader="true" HeaderText="Add event">
+    <EditForm Model="EventModel" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+
+        <div class="form-outline mb-4">
+            <label class="form-label">Event name</label>
+            <InputText type="text" @bind-Value="EventModel.Name" class="form-control bg-dark" />
+            <ValidationMessage For="@(() => EventModel.Name)" />
+
+        </div>
+
+        <div class="form-outline mb-4">
+            <label class="form-label">Event venue</label>
+            <InputText type="text" @bind-Value="EventModel.Venue" class="form-control bg-dark" />
+            <ValidationMessage For="@(() => EventModel.Venue)" />
+        </div>
+
+        <div class="form-outline mb-4">
+            <label class="form-label">Start time</label>
+            <InputDate @bind-Value="EventModel.StartTime" class="form-control bg-dark" />
+            <ValidationMessage For="@(() => EventModel.StartTime)" />
+        </div>
+
+        <div class="form-outline mb-4">
+            <label class="form-label">End time</label>
+            <InputDate @bind-Value="EventModel.EndTime" class="form-control bg-dark" />
+            <ValidationMessage For="@(() => EventModel.EndTime)" />
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-dark btn-outline-primary">create event</button>
+        </div>
+
+    </EditForm>
+</Card>
+
+@code
+{
+    [Parameter]
+    public Func<EventModel, Task> OnCreateEvent { get; set; }
+
+    private EventModel EventModel { get; set; } = new EventModel
+        {
+            StartTime = DateTime.Now,
+            EndTime = DateTime.Now
+        };
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("AddEventComponent: HandleValidSubmit())");
+        OnCreateEvent(EventModel);
+    }
+}
